@@ -1,7 +1,6 @@
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 
@@ -39,17 +38,9 @@ public class BaseTest {
 
     }
 
-    ;
-
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
-    }
-
-    public Response createOrder(String bodyParameterRequest) {
-        Response createOrder = sendPostRequestWithBody(pathOrder, bodyParameterRequest);
-        compareStatusCodeResponse(createOrder, statusCode.SUCCESS_201.code);
-        return createOrder;
     }
 
     public Response sendPostRequest(String pathRequest, String pathFileBody) {
@@ -83,17 +74,6 @@ public class BaseTest {
                     .header("Content-type", "application/json")
                     .body(body)
                     .post(pathRequest);
-            return response;
-        }
-    }
-
-    public Response sendGetRequest(String pathRequest, String body) {
-        step("Отправляем Get в ручку" + pathRequest);
-        {
-            Response response = given().auth().none()
-                    .header("Content-type", "application/json")
-                    .body(body)
-                    .get(pathRequest);
             return response;
         }
     }
